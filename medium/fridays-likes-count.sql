@@ -59,8 +59,8 @@ ORDER BY date_liked;
 --top vote
 select date_liked, count(p.post_id)
 from likes l
-join user_posts p on l.post_id = p.post_id
-join friendships f on (l.user_name = f.user_name1 and p.user_name = f.user_name2)
-                    or (l.user_name = f.user_name2 and p.user_name = f.user_name1)
+join user_posts p on l.post_id = p.post_id --This inner join added all the likes and paired the likes with the post by post_id
+join friendships f on (l.user_name = f.user_name1 and p.user_name = f.user_name2) --this inner join paired row with a friend combination
+                    or (l.user_name = f.user_name2 and p.user_name = f.user_name1) ----this inner join paired row with the other friend combination
 where EXTRACT(DOW FROM date_liked::date) = 5
 group by date_liked
